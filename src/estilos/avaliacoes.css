@@ -1,0 +1,80 @@
+/* Avaliações do Google (nota, total e a faixa que passa sozinha) e a localização com o mapa */
+.avaliacoes { position: relative; padding-top: clamp(100px, 16vh, 200px); overflow-x: clip; }
+.avaliacoes__topo { align-items: end; row-gap: 32px; margin-bottom: clamp(48px, 8vh, 96px); }
+.avaliacoes__topo .titulo { grid-column: 1 / 8; }
+.avaliacoes__nota { grid-column: 8 / -1; display: flex; align-items: flex-end; gap: clamp(16px, 2vw, 32px); }
+.nota__num { font-size: clamp(88px, 9.6vw, 200px); font-weight: 450; letter-spacing: -.07em; line-height: .78; font-variant-numeric: tabular-nums; }
+.nota__estrelas { position: relative; display: inline-block; line-height: 0; }
+.nota__estrelas svg, .avaliacao__estrelas svg { width: 24px; height: 24px; margin-right: 3px; }
+.nota__base svg { fill: var(--fio); }
+.nota__cheia { position: absolute; inset: 0 auto 0 0; width: var(--nota); overflow: hidden; white-space: nowrap; }
+.nota__cheia svg { fill: var(--laranja); }
+.nota__total { margin-top: 10px; }
+.nota__link { display: inline-flex; align-items: center; gap: 10px; margin-top: 10px; font-size: var(--tipo-link); font-weight: 600; }
+@media (hover: hover) {
+  :where(html:not(.is-scrolling)) .nota__link:hover .seta { transform: translateX(5px); transition-duration: var(--t-hover); }
+}
+
+/* faixa contínua: a lista aparece duas vezes e o trilho anda metade da largura, sem emenda */
+.avaliacoes__faixa {
+  overflow: hidden;
+  padding-block: 8px 24px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.avaliacoes__faixa:focus-visible { outline-offset: -4px; }
+.avaliacoes__trilho {
+  display: flex; gap: var(--calha); width: max-content;
+  padding-left: var(--calha);
+  animation: desliza 55s linear infinite;
+}
+.avaliacoes__faixa:hover .avaliacoes__trilho,
+.avaliacoes__faixa:focus-within .avaliacoes__trilho { animation-play-state: paused; }
+@keyframes desliza { to { transform: translateX(-50%); } }
+
+.avaliacao {
+  width: clamp(290px, 27vw, 440px);
+  display: flex; flex-direction: column; gap: 16px;
+  padding: clamp(22px, 2vw, 32px);
+  border-radius: 20px; background: var(--papel);
+  transition: background-color var(--t-sai) var(--ease), transform var(--t-sai) var(--ease);
+}
+@media (hover: hover) {
+  .avaliacao:hover { background: #fff; box-shadow: 0 0 0 1px var(--fio), 0 24px 50px -30px rgb(18 19 23 / .35); transform: translateY(-4px); transition-duration: var(--t-hover); }
+}
+.avaliacao__topo { display: flex; align-items: center; gap: 14px; }
+.avaliacao__inicial {
+  flex: none; width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--laranja); color: var(--branco); font-weight: 600; font-size: 20px;
+}
+.avaliacao__nome { font-weight: 600; line-height: 1.2; text-transform: capitalize; }
+.avaliacao__quando { font-size: var(--tipo-micro); color: var(--cinza); }
+.avaliacao__estrelas { line-height: 0; }
+.avaliacao__estrelas svg { width: 18px; height: 18px; fill: var(--laranja); }
+.avaliacao__texto { font-size: var(--tipo-corpo); line-height: 1.5; }
+
+/* mapa */
+.avaliacoes__mapa { margin-top: clamp(80px, 14vh, 160px); align-items: center; row-gap: 32px; padding-bottom: clamp(20px, 4vh, 40px); }
+.mapa__info { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 14px; }
+.mapa__titulo { font-size: var(--tipo-titulo); font-weight: 450; letter-spacing: -.04em; line-height: 1.02; margin-bottom: 8px; }
+.mapa__codigo { font-size: var(--tipo-micro); color: var(--cinza); }
+.mapa__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 8px; font-size: var(--tipo-link); }
+.mapa__moldura {
+  grid-column: 6 / -1; position: relative; z-index: 6;
+  height: clamp(340px, 56vh, 560px);
+  border-radius: var(--raio); overflow: hidden; background: var(--papel);
+  box-shadow: 0 0 0 1px var(--fio);
+}
+.mapa__moldura iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+@media (max-width: 760px) {
+  .avaliacoes__topo .titulo, .avaliacoes__nota, .mapa__info, .mapa__moldura { grid-column: 1 / -1; }
+  .avaliacoes__nota { align-items: center; }
+  .mapa__moldura { height: 360px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .avaliacoes__trilho { animation: none; }
+  .avaliacoes__faixa { overflow-x: auto; }
+  .avaliacao[aria-hidden='true'] { display: none; }
+}

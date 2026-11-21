@@ -1,0 +1,56 @@
+/* Tokens da Life Connect: troque aqui as cores, fontes, tamanhos e a grade do site inteiro. */
+:root {
+  /* cores */
+  --branco: #ffffff;
+  --papel: #f5f3ef;        /* fundo do menu aberto */
+  --tinta: #121317;        /* texto principal (o preto da fachada) */
+  --noite: #111216;        /* painéis escuros */
+  --cinza: #66666b;        /* texto de apoio */
+  --cinza-claro: #9b9ba0;  /* placeholder */
+  --fio: #dcdad5;          /* linhas finas */
+  --laranja: #ff5a1f;      /* cor da marca */
+  --laranja-escuro: #e2470f;
+  --erro: #c42b1c;
+
+  /* fonte e tamanhos */
+  --fonte: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tipo-display: clamp(72px, min(11.4vw, 22svh), 260px);
+  --tipo-titulo: clamp(36px, 5.3vw, 112px);
+  --tipo-sub: clamp(30px, 5.3vw, 112px);
+  --tipo-medio: clamp(22px, 1.9vw, 34px);
+  --tipo-corpo: clamp(16px, 1.22vw, 20px);
+  --tipo-link: clamp(15px, 1.17vw, 19px);
+  --tipo-campo: clamp(16px, 1.24vw, 20px);
+  --tipo-micro: clamp(12px, .85vw, 14px);
+  --tipo-logo: clamp(22px, 1.9vw, 34px);
+
+  /* grade de 12 colunas */
+  --colunas: 12;
+  --margem: 7.36vw;
+  --calha: 3.26vw;
+  --coluna: calc((100vw - 2 * var(--margem) - (var(--colunas) - 1) * var(--calha)) / var(--colunas));
+
+  /* movimento */
+  --ease: cubic-bezier(.2, .8, .1, 1);
+  --ease-sai: cubic-bezier(.55, 0, .7, .2);
+  --t-hover: 180ms;
+  --t-sai: 320ms;
+  --t-estado: 420ms;
+  --t-entrada: 900ms;
+
+  --raio: 28px;
+  --nav-h: clamp(72px, 6.6vw, 108px);
+}
+
+@media (max-width: 760px) {
+  :root {
+    --colunas: 4;
+    --margem: 20px;
+    --calha: 12px;
+    --tipo-display: clamp(54px, 16.4vw, 110px);
+    --tipo-titulo: clamp(26px, 7.4vw, 44px);
+    --tipo-sub: clamp(26px, 7.4vw, 44px);
+    --raio: 20px;
+    --nav-h: 68px;
+  }
+}

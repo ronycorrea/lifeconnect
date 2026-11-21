@@ -1,0 +1,19 @@
+/* Junta todas as folhas. A fonte Geist vem do pacote local (@fontsource), sem CDN. */
+@import '@fontsource-variable/geist';
+@import './tokens.css';
+@import './base.css';
+@import './animacoes.css';
+@import './preloader.css';
+@import './nav.css';
+@import './hero.css';
+@import './cobertura.css';
+@import './numeros.css';
+@import './energia.css';
+@import './vantagens.css';
+@import './planos.css';
+@import './chao.css';
+@import './instalacao.css';
+@import './indique.css';
+@import './avaliacoes.css';
+@import './casa.css';
+@import './rodape.css';

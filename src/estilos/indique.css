@@ -1,0 +1,39 @@
+/* Indique e ganhe: painel laranja com cantos arredondados e o "30%" gigante */
+.indique { padding-block: clamp(40px, 8vh, 100px); }
+.indique__painel {
+  margin-inline: var(--margem);
+  border-radius: var(--raio);
+  background: var(--laranja);
+  color: var(--tinta);
+  padding-block: clamp(64px, 12vh, 140px);
+  overflow: hidden;
+}
+.indique__dentro { padding-inline: clamp(24px, 4vw, 72px); align-items: center; row-gap: 32px; }
+.indique__texto { grid-column: 1 / 8; display: flex; flex-direction: column; align-items: flex-start; gap: 26px; }
+.indique__chamada {
+  display: inline-block; padding: 8px 16px; border-radius: 6px;
+  background: var(--tinta); color: var(--branco);
+  font-size: var(--tipo-micro); font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+}
+.indique__titulo { color: var(--branco); font-weight: 600; font-style: italic; letter-spacing: -.05em; }
+.indique__titulo .linha { padding-right: .12em; }
+.indique__titulo .linha:last-child > span { color: var(--tinta); }
+.indique__apoio { max-width: 46ch; }
+.indique__acao { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: var(--tipo-link); }
+.indique__acao:active .seta { transform: translateX(10px); }
+@media (hover: hover) {
+  :where(html:not(.is-scrolling)) .indique__acao:hover .seta { transform: translateX(5px); transition-duration: var(--t-hover); }
+}
+.indique__numero {
+  grid-column: 8 / -1; justify-self: end;
+  font-size: clamp(140px, 19vw, 400px); font-weight: 600; letter-spacing: -.08em; line-height: .8;
+  color: var(--branco);
+}
+.indique__numero span { font-size: .45em; letter-spacing: -.04em; vertical-align: top; }
+.indique :focus-visible { outline-color: var(--tinta); }
+
+@media (max-width: 760px) {
+  .indique__painel { margin-inline: 12px; }
+  .indique__texto, .indique__numero { grid-column: 1 / -1; }
+  .indique__numero { justify-self: start; order: -1; }
+}

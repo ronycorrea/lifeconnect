@@ -1,0 +1,149 @@
+/* Base: reset, grade, máscaras de texto, links sublinhados, foco, canvas 3D, barra de rolagem e passagens. */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html {
+  overflow-x: clip;
+  scrollbar-width: none;            /* a barra nativa some; no lugar entra a .barra */
+  -webkit-text-size-adjust: 100%;
+}
+html::-webkit-scrollbar { display: none; }
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--branco);
+  color: var(--tinta);
+  font-family: var(--fonte);
+  font-size: var(--tipo-corpo);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body.is-carregando { overflow: hidden; } /* scroll travado enquanto o preloader aparece */
+img { display: block; max-width: 100%; }
+h1, h2, h3, h4, h5, h6, p, figure, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+em { font-style: normal; }
+::selection { background: var(--laranja); color: var(--branco); }
+
+/* grade de 12 colunas (4 no celular) */
+.grade {
+  display: grid;
+  grid-template-columns: repeat(var(--colunas), minmax(0, 1fr));
+  column-gap: var(--calha);
+  padding-inline: var(--margem);
+}
+
+/* títulos de seção: 2 linhas no máximo */
+.titulo {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--tipo-titulo);
+  font-weight: 450;
+  letter-spacing: -.04em;
+  line-height: 1.02;
+}
+.titulo em, .ponto { color: var(--laranja); }
+
+/* entrada por marco: cada linha é uma máscara; o span sobe uma vez, com duração fixa */
+.linha {
+  display: block;
+  overflow: hidden;
+  padding: .14em 0 .24em;
+  margin: -.14em 0 -.24em;
+}
+.linha > span { display: block; }
+.js [data-marco] .linha > span {
+  transform: translateY(112%);
+  transition: transform var(--t-entrada) var(--ease) calc(var(--i, 0) * 70ms);
+}
+.js [data-marco].is-in .linha > span { transform: none; }
+.js [data-marco] .surge {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--t-entrada) var(--ease) calc(var(--i, 0) * 70ms + 80ms),
+              transform var(--t-entrada) var(--ease) calc(var(--i, 0) * 70ms + 80ms);
+}
+.js [data-marco].is-in .surge { opacity: 1; transform: none; }
+
+/* links sublinhados: o fio sai pela direita e volta pela esquerda */
+.sub {
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+  padding-bottom: 3px;
+  transition: transform var(--t-hover) var(--ease);
+}
+.sub:focus-visible { background-size: 100% 2px; }
+.sub:active, .is-toque.sub { transform: translateY(1px); }
+@keyframes sublinha {
+  0% { background-position: 100% 100%; background-size: 100% 1px; }
+  50% { background-position: 100% 100%; background-size: 0 1px; }
+  50.01% { background-position: 0 100%; background-size: 0 1px; }
+  100% { background-position: 0 100%; background-size: 100% 1px; }
+}
+@media (hover: hover) {
+  :where(html:not(.is-scrolling)) .sub:hover { animation: sublinha 560ms var(--ease); }
+}
+
+/* setas que andam no hover */
+.seta { width: 22px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.5; flex: none; transition: transform var(--t-sai) var(--ease); }
+
+/* foco visível só pelo teclado */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--tinta); outline-offset: 4px; }
+
+.pular {
+  position: fixed; top: 12px; left: 12px; z-index: 60;
+  padding: 10px 16px; background: var(--tinta); color: var(--branco);
+  transform: translateY(-160%); transition: transform var(--t-estado) var(--ease);
+}
+.pular:focus { transform: none; }
+
+.is-oculto {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* o 3D fica num canvas fixo por cima do conteúdo, sem receber clique */
+.cena {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 5; pointer-events: none;
+}
+
+/* barra de rolagem própria */
+.barra { position: fixed; top: 0; right: 0; bottom: 0; width: 14px; z-index: 40; pointer-events: none; }
+.barra__polegar {
+  position: absolute; top: 0; right: 3px;
+  width: 3px; height: var(--altura, 60px);
+  transform: translateY(var(--y, 0));
+  background: rgb(18 19 23 / .42);
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: auto;
+  cursor: grab;
+  transition: opacity var(--t-estado) var(--ease), width var(--t-hover) var(--ease);
+}
+.barra.is-ativa .barra__polegar, .barra.is-arrastando .barra__polegar { opacity: 1; }
+.barra:hover .barra__polegar, .barra.is-arrastando .barra__polegar { width: 6px; opacity: 1; }
+.barra.is-arrastando .barra__polegar { cursor: grabbing; }
+
+/* passagens: um pulso de luz cruza o vão (no lugar do satélite da base), preso à rolagem por luz.js */
+.passagem { position: absolute; left: 0; right: 0; pointer-events: none; overflow: hidden; z-index: 4; }
+.passagem::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--fio) 12%, var(--fio) 88%, transparent);
+}
+.pulso {
+  position: absolute; top: 50%; left: 0;
+  width: var(--passagem-l, 46vw); height: 2px; margin-top: -.5px;
+  background: linear-gradient(90deg, #fff 0%, rgb(255 90 31 / .9) 30%, #fff0 100%);
+  border-radius: 2px;
+  filter: drop-shadow(0 0 6px rgb(255 90 31 / .9));
+  transform: translateX(110vw);
+  will-change: transform;
+}
+.pulso::after {
+  content: ''; position: absolute; left: -4px; top: 50%; width: 9px; height: 9px; margin-top: -4.5px;
+  border-radius: 50%; background: #fff; box-shadow: 0 0 12px 4px rgb(255 90 31 / .85);
+}

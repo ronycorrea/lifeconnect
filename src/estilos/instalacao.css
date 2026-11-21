@@ -1,0 +1,40 @@
+/* Instalação: passos em escada descendo para a direita; a CTO 3D no canto de cima à direita */
+.instalacao { position: relative; padding-top: clamp(80px, 12vh, 160px); padding-bottom: clamp(220px, 36vh, 440px); overflow-x: clip; }
+.instalacao__topo .titulo { grid-column: 1 / 8; }
+
+.instalacao__palco {
+  position: absolute; right: var(--margem); top: 7%;
+  width: calc(var(--coluna) * 4 + var(--calha) * 3); height: 38%;
+  pointer-events: none;
+}
+.vaga { position: absolute; pointer-events: none; }
+.vaga--inst-a { left: 0; right: 0; top: 0; height: 50%; }
+.vaga--inst-b { left: 0; right: 0; top: 50%; height: 50%; }
+.vaga--inst-c {
+  left: var(--margem); width: calc(var(--coluna) * 4 + var(--calha) * 3);
+  bottom: clamp(150px, 26vh, 300px); height: 18%;
+}
+
+.passos { margin-top: clamp(56px, 10vh, 120px); align-items: start; counter-reset: passo; }
+.passo { grid-column: span 3; }
+.passo--2 { margin-top: clamp(80px, 15vh, 190px); }
+.passo--3 { margin-top: clamp(160px, 30vh, 380px); }
+.passo--4 { margin-top: clamp(240px, 45vh, 570px); }
+.passo__num { font-size: clamp(72px, 10.2vw, 210px); font-weight: 450; letter-spacing: -.07em; line-height: .9; margin-left: -.05em; }
+.passo__num > span { color: var(--tinta); }
+.passo--4 .passo__num > span { color: var(--laranja); }
+.passo__nome {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--fio);
+  font-size: var(--tipo-medio); font-weight: 500; letter-spacing: -.03em; line-height: 1.1;
+}
+.passo p { margin-top: 10px; color: var(--cinza); max-width: 28ch; }
+
+@media (max-width: 760px) {
+  .instalacao { padding-bottom: 120px; }
+  .instalacao__topo .titulo { grid-column: 1 / -1; }
+  .instalacao__palco { position: relative; right: auto; top: auto; width: auto; height: 118vw; margin: 12px var(--margem) 0; }
+  .passos { margin-top: 0; row-gap: 56px; }
+  .passo, .passo--3 { grid-column: 1 / 4; margin-top: 0; }
+  .passo--2, .passo--4 { grid-column: 2 / 5; margin-top: 0; }
+  .vaga--inst-c { display: none; }
+}

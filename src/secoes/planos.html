@@ -1,0 +1,37 @@
+<!-- EFEITO 4: título com fadeIn (delay 100) e bloco dos planos com zoomInUp lento -->
+<section class="planos" id="planos" aria-labelledby="planos-titulo">
+  <div class="planos__topo grade">
+    <h2 class="titulo planos__titulo reveal" id="planos-titulo" data-animation="fadeIn" data-delay="100">
+      Nossos planos.<br>Nenhuma franquia.
+    </h2>
+    <p class="planos__apoio reveal" data-animation="fadeIn" data-delay="300">Equipamento incluso e instalação gratuita em todos os planos. A partir do 40 Mega, o no-break também vem junto.</p>
+  </div>
+  <div class="planos__lista grade reveal slow" data-animation="zoomInUp">
+    <article class="plano" data-plano-col="25" tabindex="-1">
+      <p class="plano__nome">básico</p>
+      <p class="plano__mega"><span class="plano__num">25</span><span class="plano__un">Mega</span></p>
+      <p class="plano__uso">Para WhatsApp, redes sociais e vídeo no celular, sem travar.</p>
+      <p class="plano__inclui">Equipamento incluso · Instalação gratuita</p>
+      <p class="plano__preco"><span class="rs">R$</span>99<span class="cent">,90</span><span class="mes">/mês</span></p>
+      <a class="plano__assinar sub" href="#cobertura" data-assinar="25">Assinar <svg class="seta" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg></a>
+    </article>
+    <article class="plano" data-plano-col="40" tabindex="-1">
+      <p class="plano__nome">plus <span class="plano__pedido">o mais pedido</span></p>
+      <p class="plano__mega"><span class="plano__num">40</span><span class="plano__un">Mega</span></p>
+      <p class="plano__uso">Para a casa toda: aula, filme e chamada de vídeo ao mesmo tempo.</p>
+      <p class="plano__inclui">Equipamento e no-break inclusos · Instalação gratuita · Benefícios exclusivos</p>
+      <p class="plano__preco"><span class="rs">R$</span>149<span class="cent">,90</span><span class="mes">/mês</span></p>
+      <a class="plano__assinar sub" href="#cobertura" data-assinar="40">Assinar <svg class="seta" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg></a>
+    </article>
+    <article class="plano" data-plano-col="50" tabindex="-1">
+      <p class="plano__nome">gold</p>
+      <p class="plano__mega"><span class="plano__num">50</span><span class="plano__un">Mega</span></p>
+      <p class="plano__uso">Para quem trabalha de casa: jogos, câmeras e muita gente conectada.</p>
+      <p class="plano__inclui">Equipamento e no-break inclusos · Instalação gratuita · Benefícios exclusivos</p>
+      <p class="plano__preco"><span class="rs">R$</span>199<span class="cent">,90</span><span class="mes">/mês</span></p>
+      <a class="plano__assinar sub" href="#cobertura" data-assinar="50">Assinar <svg class="seta" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg></a>
+    </article>
+  </div>
+  <!-- passagem: o pulso de luz cruza o vão entre os planos e a foto (no lugar do satélite) -->
+  <div class="planos__passagem passagem" data-passagem aria-hidden="true"><i class="pulso"></i></div>
+</section>

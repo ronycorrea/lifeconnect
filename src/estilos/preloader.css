@@ -1,0 +1,12 @@
+/* EFEITO 1: preloader em tela cheia, fundo branco, logo 134x123, barra e porcentagem */
+.preloader {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px;
+  background: var(--branco);
+  transition: opacity 600ms var(--ease);
+}
+.preloader.is-saindo { opacity: 0; pointer-events: none; }
+.preloader__logo { width: min(260px, 64vw); height: auto; }
+.preloader__trilho { width: min(240px, 60vw); height: 3px; border-radius: 3px; background: var(--fio); overflow: hidden; }
+.preloader__barra { display: block; height: 100%; width: 100%; background: var(--laranja); transform-origin: left; transform: scaleX(var(--p, 0)); }
+.preloader__pct { font-size: var(--tipo-micro); font-variant-numeric: tabular-nums; color: var(--cinza); letter-spacing: .04em; }

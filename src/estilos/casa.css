@@ -1,0 +1,28 @@
+/* Casa: a foto da loja sobe com os cantos de cima arredondados; a faixa branca da consulta encaixa por cima */
+.casa { position: relative; padding-top: clamp(100px, 16vh, 200px); overflow-x: clip; }
+.casa__topo { align-items: end; margin-bottom: clamp(48px, 8vh, 96px); }
+.casa__topo .titulo { grid-column: 1 / 9; }
+.casa__apoio { grid-column: 9 / -1; color: var(--cinza); }
+.casa__foto { position: relative; height: max(560px, 96svh); overflow: hidden; border-radius: var(--raio) var(--raio) 0 0; }
+.casa__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.casa__passagem { top: 3%; height: 13%; --passagem-l: 26vw; }
+.casa__passagem::before { display: none; }
+.casa__consulta {
+  position: relative; z-index: 6;
+  margin-top: calc(-1 * var(--raio));
+  border-radius: var(--raio) var(--raio) 0 0;
+  background: var(--branco);
+  padding-block: clamp(48px, 9vh, 110px) clamp(40px, 8vh, 90px);
+}
+@supports (animation-timeline: view()) {
+  .casa__foto img { animation: zoomFoto linear both; animation-timeline: view(); animation-range: entry 0% cover 55%; }
+}
+@media (max-width: 760px) {
+  .casa__topo .titulo, .casa__apoio { grid-column: 1 / -1; }
+  .casa__apoio { margin-top: 16px; }
+  .casa__foto { height: auto; aspect-ratio: 1; }
+  .casa__passagem { top: 4%; height: 9%; --passagem-l: 70vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .casa__foto img { animation: none !important; }
+}

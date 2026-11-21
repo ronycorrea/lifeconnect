@@ -1,0 +1,54 @@
+/* EFEITO 3: cards "Vantagens" que viram (flip box 3D). O JS só alterna uc-hide / uc-show. */
+.vantagens { position: relative; padding-block: clamp(100px, 16vh, 200px); overflow-x: clip; }
+.vantagens__topo { align-items: end; margin-bottom: clamp(48px, 8vh, 96px); }
+.vantagens__topo .titulo { grid-column: 1 / 9; }
+.vantagens__apoio { grid-column: 9 / -1; color: var(--cinza); font-size: var(--tipo-corpo); }
+.vantagens__cards { row-gap: 24px; }
+
+.flip-box {
+  grid-column: span 4;
+  height: 320px;             /* altura fixa: os painéis são absolutos */
+  overflow: visible;         /* o giro passa da caixa */
+  cursor: pointer;
+  border-radius: 20px;
+}
+.flip-box:focus-visible { outline-offset: 6px; }
+
+.flip-box__container { position: relative; height: 100%; transform-style: preserve-3d; perspective: 1000px; }
+.panel {
+  position: absolute; inset: 0;
+  transform-style: preserve-3d;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  transition: all .8s cubic-bezier(.455, .03, .515, .955);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 14px;
+  padding: clamp(22px, 2vw, 34px);
+  border-radius: 20px;
+  color: var(--branco);
+}
+.uc-hide .panel--front { transform: none; transform-origin: 100% 50%; }
+.uc-hide .panel--back { transform: translateX(100%) rotateY(180deg); transform-origin: 0% 50%; }
+.uc-show .panel--front { transform: translateX(100%) rotateY(-180deg); transform-origin: 0% 50%; }
+.uc-show .panel--back { transform: none; transform-origin: 100% 50%; }
+
+.panel--front { background: var(--fundo) center / cover no-repeat; }
+.panel--front::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: rgba(0, 0, 0, .7);
+  transition: background-color 800ms ease;
+}
+.uc-show .panel--front::before { background: rgba(0, 0, 0, .35); }
+.panel > * { position: relative; }
+.panel h3 { font-size: var(--tipo-medio); font-weight: 550; letter-spacing: -.03em; line-height: 1.05; }
+.panel__num { position: absolute; top: clamp(22px, 2vw, 34px); left: clamp(22px, 2vw, 34px); font-size: var(--tipo-micro); color: rgb(255 255 255 / .7); }
+.panel--front .panel__num::after { content: ''; display: inline-block; width: 28px; height: 2px; margin-left: 10px; vertical-align: middle; background: var(--laranja); }
+.panel--back { background: var(--laranja); justify-content: space-between; }
+.panel--back p { font-size: var(--tipo-corpo); line-height: 1.45; color: var(--tinta); }
+
+@media (max-width: 760px) {
+  .vantagens__topo .titulo, .vantagens__apoio { grid-column: 1 / -1; }
+  .vantagens__apoio { margin-top: 16px; }
+  .flip-box { grid-column: 1 / -1; height: 280px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel { transition: opacity 200ms linear; }
+}

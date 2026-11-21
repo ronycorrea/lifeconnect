@@ -1,0 +1,52 @@
+/* Rodapé: contato, links e "Life Connect." gigante de ponta a ponta, com a luz cruzando por cima no fim */
+.rodape { position: relative; padding-top: clamp(40px, 8vh, 100px); overflow-x: clip; }
+.rodape__topo { align-items: start; row-gap: 48px; }
+.rodape__contato { grid-column: 1 / 7; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.rodape__titulo { display: flex; flex-direction: column; font-size: var(--tipo-sub); font-weight: 450; letter-spacing: -.04em; line-height: 1.02; margin-bottom: 24px; }
+.rodape__fone { font-size: var(--tipo-medio); letter-spacing: -.02em; }
+.rodape__hora { color: var(--cinza); }
+.rodape__links { grid-column: 8 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-top: 12px; font-size: var(--tipo-link); }
+.rodape__links ul { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+
+.rodape__marca { position: relative; padding-top: clamp(80px, 16vh, 200px); }
+.rodape__passagem { top: 0; height: clamp(80px, 16vh, 200px); --passagem-l: 40vw; }
+.rodape__gigante {
+  padding-inline: var(--margem);
+  font-size: 16.4vw; font-weight: 500; letter-spacing: -.075em; line-height: .74;
+  white-space: nowrap; margin-left: -.04em; padding-bottom: .06em;
+}
+.rodape__gigante span { color: var(--laranja); }
+
+/* brilho que segue o mouse (brilho.js): o texto é pintado pelo fundo; um degradê laranja suave fica sob o cursor */
+.rodape__gigante[data-brilho] {
+  --mx: 50%; --my: 50%; --forca: 0; --luz: clamp(160px, 19vw, 340px);
+  background:
+    radial-gradient(circle var(--luz) at var(--mx) var(--my),
+      rgb(255 90 31 / calc(var(--forca) * .95)) 0%,
+      rgb(255 138 76 / calc(var(--forca) * .55)) 45%,
+      rgb(255 138 76 / 0) 100%),
+    linear-gradient(var(--tinta), var(--tinta));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+.rodape__gigante[data-brilho] span { -webkit-text-fill-color: var(--laranja); }
+.rodape__base {
+  margin-top: clamp(24px, 4vh, 48px);
+  padding-block: 22px; border-top: 1px solid var(--fio);
+  align-items: center; row-gap: 12px;
+  font-size: var(--tipo-micro); color: var(--cinza);
+}
+.rodape__base > p:first-child { grid-column: 1 / 7; }
+.rodape__legais { grid-column: 7 / 10; display: flex; gap: 24px; }
+.rodape__topo-link { grid-column: 10 / -1; justify-self: end; display: inline-flex; align-items: center; gap: 8px; color: var(--tinta); }
+.rodape__topo-link svg { width: 12px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; transition: transform var(--t-sai) var(--ease); }
+.rodape__topo-link:active svg { transform: translateY(-8px); }
+@media (hover: hover) {
+  :where(html:not(.is-scrolling)) .rodape__topo-link:hover svg { transform: translateY(-4px); transition-duration: var(--t-hover); }
+}
+@media (max-width: 760px) {
+  .rodape__contato, .rodape__links { grid-column: 1 / -1; }
+  .rodape__links { grid-template-columns: 1fr 1fr; }
+  .rodape__base > p:first-child, .rodape__legais, .rodape__topo-link { grid-column: 1 / -1; justify-self: start; }
+  .rodape__passagem { --passagem-l: 70vw; }
+}

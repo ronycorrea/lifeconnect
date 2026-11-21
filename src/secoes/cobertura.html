@@ -1,0 +1,66 @@
+<!-- Formulário de disponibilidade (usado duas vezes: id=hero e id=casa): bairro, rua e plano.
+     Ao enviar, abre o WhatsApp da Life Connect com a mensagem pronta (ver src/partes/cobertura.js).
+     LISTA DE BAIRROS: confirmada pela Life Connect (atende todos os bairros; quem não achar o seu escolhe "Outro bairro"). -->
+<form class="cobertura grade" data-cobertura novalidate>
+  <div class="cobertura__campos">
+    <div class="campo campo--escolha" data-campo>
+      <label class="campo__rotulo is-oculto" for="bairro-{{id}}">Seu bairro</label>
+      <select class="campo__entrada" id="bairro-{{id}}" name="bairro" aria-describedby="bairro-{{id}}-erro">
+        <option value="">Seu bairro</option>
+        <option value="Centro">Centro</option>
+        <option value="Chagas Aguiar">Chagas Aguiar</option>
+        <option value="Ciganópolis">Ciganópolis</option>
+        <option value="Duque de Caxias">Duque de Caxias</option>
+        <option value="Espírito Santo">Espírito Santo</option>
+        <option value="Grande Vitória">Grande Vitória</option>
+        <option value="Itamarati">Itamarati</option>
+        <option value="Liberdade">Liberdade</option>
+        <option value="Pêra">Pêra</option>
+        <option value="Santa Efigênia">Santa Efigênia</option>
+        <option value="Santa Helena">Santa Helena</option>
+        <option value="Tauá-Mirim">Tauá-Mirim</option>
+        <option value="União">União</option>
+        <option value="Urucu">Urucu</option>
+        <option value="outro">Outro bairro</option>
+      </select>
+      <svg class="campo__chevron" viewBox="0 0 14 8" aria-hidden="true"><path d="M1 1l6 6 6-6"/></svg>
+      <span class="campo__erro" id="bairro-{{id}}-erro" aria-live="polite"></span>
+    </div>
+    <!-- aparece só quando a pessoa escolhe "Outro bairro" -->
+    <div class="campo campo--outro" data-campo hidden>
+      <label class="campo__rotulo" for="outro-{{id}}">Qual bairro?</label>
+      <input class="campo__entrada" id="outro-{{id}}" name="outro" autocomplete="address-level3"
+             placeholder="Nome do bairro" maxlength="60" aria-describedby="outro-{{id}}-erro">
+      <span class="campo__erro" id="outro-{{id}}-erro" aria-live="polite"></span>
+    </div>
+    <div class="campo campo--rua" data-campo>
+      <label class="campo__rotulo" for="rua-{{id}}">Sua rua</label>
+      <input class="campo__entrada" id="rua-{{id}}" name="rua" autocomplete="address-line1"
+             placeholder="Nome e número" maxlength="80" aria-describedby="rua-{{id}}-erro">
+      <span class="campo__erro" id="rua-{{id}}-erro" aria-live="polite"></span>
+    </div>
+    <div class="campo campo--escolha" data-campo>
+      <label class="campo__rotulo is-oculto" for="plano-{{id}}">Plano</label>
+      <select class="campo__entrada" id="plano-{{id}}" name="plano" data-plano>
+        <option value="25">Plano 25 Mega</option>
+        <option value="40" selected>Plano 40 Mega</option>
+        <option value="50">Plano 50 Mega</option>
+      </select>
+      <svg class="campo__chevron" viewBox="0 0 14 8" aria-hidden="true"><path d="M1 1l6 6 6-6"/></svg>
+    </div>
+    <button class="cobertura__enviar" type="submit">
+      <span>Perguntar no WhatsApp</span>
+      <svg class="seta" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg>
+    </button>
+  </div>
+  <div class="cobertura__resposta" aria-live="polite" hidden>
+    <div>
+      <p class="resposta__titulo"></p>
+      <p class="resposta__detalhe"></p>
+    </div>
+    <div class="resposta__acoes">
+      <a class="acao sub" href="#" target="_blank" rel="noopener">Abrir o WhatsApp de novo <svg class="seta" viewBox="0 0 22 12" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg></a>
+      <button class="sub resposta__outro" type="button">Outro endereço</button>
+    </div>
+  </div>
+</form>

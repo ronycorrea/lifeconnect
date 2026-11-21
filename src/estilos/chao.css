@@ -1,0 +1,52 @@
+/* Chão: a foto da equipe abre das margens até a largura toda; três fotos atravessam a dobra */
+.chao { position: relative; overflow-x: clip; }
+.chao__foto {
+  position: relative; height: max(640px, 116svh); overflow: hidden;
+  clip-path: inset(0 round 0);
+}
+.chao__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+.chao__foto::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgb(10 11 14 / .78) 0%, rgb(10 11 14 / .35) 42%, rgb(10 11 14 / 0) 68%);
+}
+.chao__texto {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 1;
+  padding-top: clamp(90px, 15vh, 170px);
+  color: var(--branco); align-items: end;
+}
+.chao__texto .titulo { grid-column: 1 / 8; }
+.chao__apoio { grid-column: 9 / -1; color: rgb(255 255 255 / .82); }
+
+.chao__gente {
+  position: relative; z-index: 2;
+  margin-top: calc(-1 * clamp(160px, 26svh, 300px));
+  padding-bottom: clamp(80px, 14vh, 160px);
+  align-items: start;
+}
+.gente--1 { grid-column: 1 / 4; margin-top: 4vh; }
+.gente--2 { grid-column: 5 / 9; margin-top: 14vh; }
+.gente--3 { grid-column: 10 / -1; }
+.gente__moldura { overflow: hidden; border-radius: 14px; aspect-ratio: 4 / 5; background: var(--papel); }
+.gente--2 .gente__moldura { aspect-ratio: 4 / 3; }
+.gente__moldura img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--ease); }
+.gente p { margin-top: 18px; max-width: 30ch; }
+@media (hover: hover) {
+  :where(html:not(.is-scrolling)) .gente:hover img { transform: scale(1.025); }
+}
+
+@supports (animation-timeline: view()) {
+  .chao__foto { animation: abrePainel linear both; animation-timeline: view(); animation-range: entry 0% cover 42%; }
+  .chao__foto img { animation: zoomFoto linear both; animation-timeline: view(); animation-range: entry 0% cover 60%; }
+}
+@media (max-width: 760px) {
+  .chao__foto { height: max(560px, 120svh); }
+  .chao__texto .titulo, .chao__apoio { grid-column: 1 / -1; }
+  .chao__apoio { margin-top: 16px; }
+  .chao__gente { row-gap: 40px; }
+  .gente--1 { grid-column: 1 / 3; margin-top: 0; }
+  .gente--3 { grid-column: 3 / 5; margin-top: 12vh; }
+  .gente--2 { grid-column: 1 / -1; width: 82%; justify-self: end; margin-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chao__foto, .chao__foto img { animation: none !important; }
+}

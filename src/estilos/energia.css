@@ -1,0 +1,50 @@
+/* No-break: título à esquerda e, à direita, a foto da instalação com anéis de luz que giram com a rolagem */
+.energia {
+  position: relative; min-height: 100svh;
+  display: flex; align-items: center;
+  padding-block: clamp(120px, 20vh, 220px);
+  overflow-x: clip;
+}
+.energia__texto { width: 100%; row-gap: 32px; }
+.energia__titulo { grid-column: 1 / 8; }
+.energia__apoio { grid-column: 1 / 6; color: var(--cinza); }
+.energia__selos { grid-column: 1 / 8; display: flex; flex-wrap: wrap; gap: 10px 28px; font-weight: 600; }
+.energia__selos span { display: inline-flex; align-items: center; gap: 10px; }
+.energia__selos span::before {
+  content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--laranja);
+  box-shadow: 0 0 0 5px rgb(255 90 31 / .16);
+}
+
+.energia__aneis {
+  position: absolute; right: var(--margem); top: 50%;
+  width: calc(var(--coluna) * 5 + var(--calha) * 4); max-width: 620px; aspect-ratio: 1;
+  transform: translateY(-50%);
+  perspective: 1100px;
+  --r: 0;
+}
+/* as vagas do no-break 3D: ele desce de leve dentro dos anéis enquanto a página rola */
+.vaga--nobreak-a { left: 0; right: 0; top: 20%; height: 20%; }
+.vaga--nobreak-b { left: 0; right: 0; top: 60%; height: 20%; }
+.energia__aneis i {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 2px solid transparent; border-top-color: var(--laranja); border-right-color: rgb(255 90 31 / .35);
+  filter: drop-shadow(0 0 8px rgb(255 90 31 / .7));
+  transform: rotateX(72deg) rotateZ(calc(var(--r) * 1turn));
+}
+.energia__aneis i:nth-of-type(2) { inset: 6%; border-top-color: #4cc3ff; border-right-color: rgb(76 195 255 / .3); filter: drop-shadow(0 0 8px rgb(76 195 255 / .7)); transform: rotateX(64deg) rotateY(-14deg) rotateZ(calc(var(--r) * -1.4turn + 120deg)); }
+.energia__aneis i:nth-of-type(3) { inset: -6%; border-top-color: rgb(255 90 31 / .8); border-right-color: transparent; transform: rotateX(78deg) rotateY(12deg) rotateZ(calc(var(--r) * .8turn + 240deg)); }
+.energia__nobreak {
+  position: absolute; right: 0; top: 2%;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 12px 20px; border-radius: 999px;
+  background: var(--tinta); color: var(--branco);
+  font-size: var(--tipo-link); font-weight: 600; line-height: 1.1;
+}
+.energia__nobreak small { font-size: var(--tipo-micro); font-weight: 400; color: #b8b8bd; }
+
+@media (max-width: 760px) {
+  .energia { flex-direction: column; align-items: stretch; min-height: 0; }
+  .energia__titulo, .energia__apoio, .energia__selos { grid-column: 1 / -1; }
+  .energia__aneis { position: relative; right: auto; top: auto; transform: none; width: 84vw; margin: 64px auto 60px; }
+  .energia__nobreak { top: auto; right: auto; bottom: -10%; left: 50%; transform: translateX(-50%); }
+}

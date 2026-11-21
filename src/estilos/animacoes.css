@@ -1,0 +1,47 @@
+/* EFEITO 4: revelação ao rolar (mesmos @keyframes do animate.css). reveal.js troca para "animated <nome>". */
+.js .reveal { visibility: hidden; }
+.reveal.animated { visibility: visible; }
+.animated { animation-duration: 1.25s; animation-fill-mode: both; }
+.animated.slow { animation-duration: 2s; }
+
+@keyframes zoomInUp {
+  0% { opacity: 0; transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0); animation-timing-function: cubic-bezier(.55, .055, .675, .19); }
+  60% { opacity: 1; transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0); animation-timing-function: cubic-bezier(.175, .885, .32, 1); }
+  100% { transform: none; }
+}
+.zoomInUp { animation-name: zoomInUp; }
+
+@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+.fadeIn { animation-name: fadeIn; }
+
+@keyframes bounceInLeft {
+  0%, 60%, 75%, 90%, 100% { animation-timing-function: cubic-bezier(.215, .61, .355, 1); }
+  0% { opacity: 0; transform: translate3d(-3000px, 0, 0); }
+  60% { opacity: 1; transform: translate3d(25px, 0, 0); }
+  75% { transform: translate3d(-10px, 0, 0); }
+  90% { transform: translate3d(5px, 0, 0); }
+  100% { transform: none; }
+}
+.bounceInLeft { animation-name: bounceInLeft; }
+
+@keyframes rotateInDownLeft {
+  0% { transform-origin: left bottom; transform: rotate3d(0, 0, 1, -45deg); opacity: 0; }
+  100% { transform-origin: left bottom; transform: none; opacity: 1; }
+}
+.rotateInDownLeft { animation-name: rotateInDownLeft; }
+
+/* painéis que abrem das margens até a largura toda enquanto entram (só onde o navegador suporta) */
+@keyframes abrePainel {
+  from { clip-path: inset(0 var(--margem) 0 var(--margem) round var(--raio)); }
+  to { clip-path: inset(0 round 0); }
+}
+@keyframes zoomFoto { from { transform: scale(1.12) translateY(-2%); } to { transform: none; } }
+
+/* movimento reduzido: tudo aparece direto, sem deslocamento */
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { visibility: visible; }
+  .animated { animation: none !important; }
+  .js [data-marco] .linha > span, .js [data-marco] .surge { transform: none !important; transition: opacity 200ms linear !important; }
+  .js [data-marco] .linha > span { opacity: 1; }
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}

@@ -1,0 +1,71 @@
+/* 01 Hero: tipografia gigante, a fibra de luz no respiro do título e a consulta de cobertura no pé */
+.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow-x: clip; }
+.hero__topo { padding-top: calc(var(--nav-h) + clamp(18px, 6.4vh, 72px)); align-items: start; }
+.hero__titulo {
+  grid-column: 1 / 10;
+  display: flex; flex-direction: column;
+  font-size: var(--tipo-display); font-weight: 450;
+  letter-spacing: -.062em; line-height: .8;
+  margin-left: -.035em; /* recuo óptico */
+}
+.hero__lado {
+  grid-column: 10 / -1; align-self: stretch;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+  padding-top: calc(var(--tipo-display) * .12);
+}
+.hero__lado .hero__frase { order: -1; } /* a frase fica no alto; o símbolo desce até o pé do título */
+
+/* símbolo da marca: a imagem vira máscara e o fundo laranja a pinta; entra da esquerda para a direita,
+   como o sinal se espalhando pelas bolinhas */
+.hero__simbolo {
+  display: block; width: 100%; max-width: 340px; aspect-ratio: 1000 / 309;
+  background: var(--laranja);
+  -webkit-mask: url('/simbolo.png') left center / contain no-repeat;
+          mask: url('/simbolo.png') left center / contain no-repeat;
+}
+.js .hero__simbolo { clip-path: inset(0 100% 0 0); opacity: 0; }
+.js .is-in .hero__simbolo {
+  clip-path: inset(0 0 0 0); opacity: 1;
+  transition: clip-path 1.4s cubic-bezier(.65, 0, .35, 1) .35s, opacity .4s linear .35s;
+}
+
+.hero__frase {
+  font-size: var(--tipo-medio); letter-spacing: -.03em; line-height: 1.12;
+  white-space: nowrap;
+}
+
+/* a fibra: um cabo fino que se desenha da direita e pulsos de luz laranja correndo por ele */
+.hero__fibra { position: relative; display: block; height: .4em; }
+.hero__fibra svg {
+  position: absolute; top: 50%;
+  left: calc(-1 * var(--margem) + .035em);
+  width: 100vw; height: 100px; margin-top: -50px;
+  overflow: visible;
+  filter: drop-shadow(0 0 5px rgb(255 90 31 / .55));
+}
+.fibra__cabo { fill: none; stroke: #e6e3de; stroke-width: 2; stroke-dasharray: 1000 1000; stroke-dashoffset: -1000; }
+.fibra__luz { fill: none; stroke: var(--laranja); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 140 1000; stroke-dashoffset: -1000; opacity: 0; }
+.is-in .fibra__cabo { stroke-dashoffset: 0; transition: stroke-dashoffset 2.1s cubic-bezier(.16, 1, .3, 1) .15s; }
+.is-in .fibra__luz { opacity: 1; animation: fibraLuz 3.4s cubic-bezier(.45, .05, .35, 1) 1.2s infinite; }
+.is-in .fibra__luz--2 { animation-delay: 2.9s; stroke-width: 2; }
+@keyframes fibraLuz {
+  from { stroke-dashoffset: -1000; }
+  to { stroke-dashoffset: 140; }
+}
+
+.hero__pe { position: relative; z-index: 6; margin-top: auto; padding-top: 40px; padding-bottom: clamp(28px, 7vh, 72px); }
+
+@media (max-width: 760px) {
+  .hero { min-height: 100svh; }
+  .hero__topo { padding-top: calc(var(--nav-h) + 22px); }
+  .hero__titulo { grid-column: 1 / -1; }
+  .hero__lado { grid-column: 1 / -1; margin-top: 26px; gap: 16px; padding-top: 0; justify-content: flex-start; }
+  .hero__lado .hero__frase { order: 0; }
+  .hero__simbolo { width: 58vw; }
+  .hero__frase { font-size: 22px; white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fibra__cabo { stroke-dashoffset: 0; transition: none !important; }
+  .fibra__luz { display: none; }
+  .js .hero__simbolo { clip-path: none; opacity: 1; transition: none; }
+}
