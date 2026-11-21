@@ -16,7 +16,8 @@ export function iniciaParalaxe() {
 
   aCadaQuadro(() => {
     const meio = innerHeight / 2;
-    const fator = innerWidth <= 760 ? 0.5 : 1;
+    if (innerWidth <= 760) return; // no celular as fotos ficam paradas (a faixa de fotos se arrasta para o lado)
+    const fator = 1;
     for (const i of itens) {
       if (!visiveis.has(i.el)) continue;
       const r = i.el.getBoundingClientRect();

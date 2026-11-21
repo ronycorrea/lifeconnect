@@ -49,4 +49,12 @@ function sobe3D(canvas) {
     canvas.addEventListener('webglcontextrestored', () => clearTimeout(espera));
   });
 }
-pronto.then(() => sobe3D(document.querySelector('.cena')));
+// No celular o 3D não roda: a CTO e o no-break viram imagens paradas (mais leve e sem travar a rolagem).
+const movel = matchMedia('(max-width: 760px)').matches
+  || (matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 820);
+if (movel) {
+  document.documentElement.classList.add('is-movel');
+  document.querySelector('.cena')?.remove();
+} else {
+  pronto.then(() => sobe3D(document.querySelector('.cena')));
+}

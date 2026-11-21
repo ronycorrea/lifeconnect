@@ -8,28 +8,47 @@
   letter-spacing: -.062em; line-height: .8;
   margin-left: -.035em; /* recuo óptico */
 }
-.hero__lado {
-  grid-column: 10 / -1; align-self: stretch;
-  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
-  padding-top: calc(var(--tipo-display) * .12);
+/* foto de apresentação: sobe por máscara na carga, à direita de "internet.", logo abaixo da linha de fibra */
+.hero__foto {
+  grid-column: 7 / -1; grid-row: 2;
+  position: relative; margin: calc(var(--tipo-display) * -.9) 0 0;
+  aspect-ratio: 16 / 9; border-radius: var(--raio); overflow: hidden;
+  background: var(--papel);
 }
-.hero__lado .hero__frase { order: -1; } /* a frase fica no alto; o símbolo desce até o pé do título */
+.hero__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.js .hero__foto { clip-path: inset(100% 0 0 0 round var(--raio)); }
+.js .hero__foto img { transform: scale(1.14); }
+.js .is-in .hero__foto { clip-path: inset(0 round var(--raio)); transition: clip-path 1.3s cubic-bezier(.65, 0, .35, 1) .25s; }
+.js .is-in .hero__foto img { transform: none; transition: transform 1.8s var(--ease) .25s; }
 
-/* símbolo da marca: a imagem vira máscara e o fundo laranja a pinta; entra da esquerda para a direita,
-   como o sinal se espalhando pelas bolinhas */
+/* aba branca no canto de baixo da foto, com cantos côncavos que se encaixam nela */
+.hero__selo {
+  position: absolute; left: 0; bottom: 0;
+  padding: clamp(14px, 1.4vw, 22px) clamp(18px, 1.8vw, 28px) 10px 14px; /* folga para o canto arredondado não cortar a 1ª bolinha */
+  background: var(--branco);
+  border-top-right-radius: var(--raio);
+}
+.hero__selo::before, .hero__selo::after {
+  content: ''; position: absolute; width: var(--raio); height: var(--raio);
+  background: radial-gradient(circle at 100% 0, transparent calc(var(--raio) - .5px), var(--branco) var(--raio));
+}
+.hero__selo::before { left: 0; bottom: 100%; }
+.hero__selo::after { left: 100%; bottom: 0; }
+
+/* símbolo da marca: a imagem vira máscara e o fundo laranja a pinta; entra da esquerda para a direita */
 .hero__simbolo {
-  display: block; width: 100%; max-width: 340px; aspect-ratio: 1000 / 309;
+  display: block; width: clamp(150px, 15vw, 250px); aspect-ratio: 1000 / 309;
   background: var(--laranja);
   -webkit-mask: url('/simbolo.png') left center / contain no-repeat;
           mask: url('/simbolo.png') left center / contain no-repeat;
 }
-.js .hero__simbolo { clip-path: inset(0 100% 0 0); opacity: 0; }
-.js .is-in .hero__simbolo {
-  clip-path: inset(0 0 0 0); opacity: 1;
-  transition: clip-path 1.4s cubic-bezier(.65, 0, .35, 1) .35s, opacity .4s linear .35s;
-}
+.js .hero__simbolo { clip-path: inset(0 100% 0 0); }
+.js .is-in .hero__simbolo { clip-path: inset(0 0 0 0); transition: clip-path 1.2s cubic-bezier(.65, 0, .35, 1) 1.2s; }
+
 
 .hero__frase {
+  grid-column: 10 / -1;
+  margin-top: calc(var(--tipo-display) * .12);
   font-size: var(--tipo-medio); letter-spacing: -.03em; line-height: 1.12;
   white-space: nowrap;
 }
@@ -59,13 +78,13 @@
   .hero { min-height: 100svh; }
   .hero__topo { padding-top: calc(var(--nav-h) + 22px); }
   .hero__titulo { grid-column: 1 / -1; }
-  .hero__lado { grid-column: 1 / -1; margin-top: 26px; gap: 16px; padding-top: 0; justify-content: flex-start; }
-  .hero__lado .hero__frase { order: 0; }
-  .hero__simbolo { width: 58vw; }
-  .hero__frase { font-size: 22px; white-space: normal; }
+  .hero__foto { grid-column: 1 / -1; grid-row: auto; margin-top: 28px; aspect-ratio: 4 / 3; }
+  .hero__simbolo { width: 44vw; }
+  .hero__frase { grid-column: 1 / -1; margin-top: 26px; font-size: 22px; white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   .fibra__cabo { stroke-dashoffset: 0; transition: none !important; }
   .fibra__luz { display: none; }
-  .js .hero__simbolo { clip-path: none; opacity: 1; transition: none; }
+  .js .hero__simbolo, .js .hero__foto { clip-path: none; transition: none; }
+  .js .hero__foto img { transform: none; transition: none; }
 }

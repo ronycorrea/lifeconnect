@@ -111,6 +111,15 @@ em { font-style: normal; }
   z-index: 5; pointer-events: none;
 }
 
+/* imagens paradas da CTO e do no-break: no lugar do 3D no celular (html.is-movel) ou sem WebGL (html.sem-3d) */
+.estatico { display: none; position: absolute; pointer-events: none; }
+.is-movel .estatico, .sem-3d .estatico { display: block; animation: flutua 5s ease-in-out infinite; }
+.estatico--cto { inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.estatico--nobreak { left: 12%; width: 76%; top: 50%; height: auto; margin-top: -10%; }
+@keyframes flutua { 50% { transform: translateY(-8px); } }
+.is-movel .cena { display: none; }
+@media (prefers-reduced-motion: reduce) { .estatico { animation: none !important; } }
+
 /* barra de rolagem própria */
 .barra { position: fixed; top: 0; right: 0; bottom: 0; width: 14px; z-index: 40; pointer-events: none; }
 .barra__polegar {

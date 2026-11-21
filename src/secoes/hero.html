@@ -12,11 +12,16 @@
       </span>
       <span class="linha"><span style="--i:1">internet<em class="ponto">.</em></span></span>
     </h1>
-    <div class="hero__lado">
-      <!-- símbolo oficial da Life Connect (public/simbolo.png, recortado da arte), pintado de laranja pelo CSS -->
-      <span class="hero__simbolo" role="img" aria-label="Símbolo da Life Connect"></span>
-      <p class="hero__frase surge" style="--i:3">Fibra óptica a partir de<br>R$&nbsp;99,90 por mês.</p>
-    </div>
+    <p class="hero__frase surge" style="--i:3">Fibra óptica a partir de<br>R$&nbsp;99,90 por mês.</p>
+
+    <!-- foto de apresentação: a equipe na frente da loja. O símbolo oficial (public/simbolo.png) fica numa aba branca no canto -->
+    <figure class="hero__foto">
+      <picture>
+        <source media="(max-width: 760px)" srcset="/img/hero-m.webp">
+        <img src="/img/hero.webp" alt="Equipe de técnicos da Life Connect na frente da loja" width="1400" height="788" fetchpriority="high">
+      </picture>
+      <span class="hero__selo"><span class="hero__simbolo" role="img" aria-label="Símbolo da Life Connect"></span></span>
+    </figure>
   </div>
 
   <div class="hero__pe">

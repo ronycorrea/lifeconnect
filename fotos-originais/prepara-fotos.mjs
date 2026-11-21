@@ -1,6 +1,6 @@
 // Recorta as fotos originais da Life Connect (pasta fotos-originais/) e grava em public/img/ como WebP.
 // Rodar: npm run fotos. Para trocar uma foto, substitua o .jpg aqui e ajuste o recorte abaixo.
-// recorte = { left, top, width, height } em pixels da foto original; largura = tamanho final.
+// recorte = { left, top, width, height } em pixels da foto original; largura = tamanho máximo final (sem ampliar).
 import sharp from 'sharp';
 import { mkdirSync } from 'node:fs';
 
@@ -9,6 +9,9 @@ const destino = new URL('../public/img/', import.meta.url);
 mkdirSync(destino, { recursive: true });
 
 const fotos = [
+  // hero: a equipe na frente da loja (apresentação)
+  { de: 'loja-equipe.jpg', para: 'hero.webp', recorte: { left: 0, top: 560, width: 960, height: 540 }, largura: 1400 },
+  { de: 'loja-equipe.jpg', para: 'hero-m.webp', recorte: { left: 0, top: 470, width: 960, height: 720 }, largura: 960 },
   // seção "chão": foto larga da equipe fazendo fusão de fibra
   { de: 'fusao-fibra.jpg', para: 'chao.webp', largura: 1600 },
   { de: 'fusao-fibra.jpg', para: 'chao-m.webp', recorte: { left: 160, top: 0, width: 720, height: 960 }, largura: 900 },
@@ -30,6 +33,9 @@ const fotos = [
 for (const f of fotos) {
   let img = sharp(new URL(f.de, origem).pathname.replace(/^\/(\w:)/, '$1')).rotate();
   if (f.recorte) img = img.extract(f.recorte);
-  await img.resize({ width: f.largura }).webp({ quality: 80 }).toFile(new URL(f.para, destino).pathname.replace(/^\/(\w:)/, '$1'));
+  // nunca amplia além do tamanho original (ampliar borra); nitidez suave para compensar a compressão do WhatsApp
+  await img.resize({ width: f.largura, withoutEnlargement: true, kernel: 'lanczos3' })
+    .sharpen({ sigma: 0.9, m1: 0.6, m2: 2.2 })
+    .webp({ quality: 90, smartSubsample: true }).toFile(new URL(f.para, destino).pathname.replace(/^\/(\w:)/, '$1'));
   console.log('ok', f.para);
 }
