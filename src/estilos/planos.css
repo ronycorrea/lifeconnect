@@ -1,6 +1,6 @@
 /* Planos: três colunas sem caixa, número gigante, fio que se desenha; o vão de baixo é a passagem da luz */
-.planos { position: relative; padding-top: clamp(100px, 16vh, 200px); padding-bottom: clamp(150px, 30vh, 320px); overflow-x: clip; }
-.planos__topo { align-items: end; margin-bottom: clamp(56px, 10vh, 120px); }
+.planos { position: relative; padding-top: var(--secao); padding-bottom: clamp(110px, 20vh, 220px); overflow-x: clip; }
+.planos__topo { align-items: end; margin-bottom: clamp(40px, 7vh, 88px); }
 .planos__titulo { grid-column: 1 / 9; display: block; }
 .planos__apoio { grid-column: 9 / -1; color: var(--cinza); }
 
@@ -41,7 +41,7 @@
   :where(html:not(.is-scrolling)) .plano__assinar:hover .seta { transform: translateX(5px); transition-duration: var(--t-hover); }
 }
 
-.planos__passagem { bottom: 0; height: clamp(150px, 30vh, 320px); --passagem-l: 46vw; }
+.planos__passagem { bottom: 0; height: clamp(110px, 20vh, 220px); --passagem-l: 46vw; }
 
 @media (max-width: 760px) {
   .planos { padding-bottom: 150px; }

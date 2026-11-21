@@ -1,11 +1,11 @@
 /* Indique e ganhe: painel laranja com cantos arredondados e o "30%" gigante */
-.indique { padding-block: clamp(40px, 8vh, 100px); }
+.indique { padding-block: clamp(24px, 4vh, 56px); }
 .indique__painel {
   margin-inline: var(--margem);
   border-radius: var(--raio);
   background: var(--laranja);
   color: var(--tinta);
-  padding-block: clamp(64px, 12vh, 140px);
+  padding-block: clamp(48px, 9vh, 110px);
   overflow: hidden;
 }
 .indique__dentro { padding-inline: clamp(24px, 4vw, 72px); align-items: center; row-gap: 32px; }

@@ -16,6 +16,12 @@ import { iniciaReveal } from './partes/reveal.js';
 import { iniciaBrilho } from './partes/brilho.js';
 
 const pronto = iniciaPreloader();
+// a foto do hero entra quando o preloader sai; depois passa a seguir o mouse sem atraso de transição
+pronto.then(() => {
+  const hero = document.querySelector('.hero');
+  hero?.classList.add('is-pronto');
+  setTimeout(() => hero?.classList.add('is-mexendo'), 1900);
+});
 iniciaMarcos({ espera: pronto });
 iniciaRolagem();
 iniciaBarra();

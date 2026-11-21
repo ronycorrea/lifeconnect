@@ -29,6 +29,19 @@ export function iniciaLuz() {
     }, { passive: true });
   }
 
+  // ---- foto do hero: anda um pouco com o mouse (no computador) ----
+  const hero = document.querySelector('.hero');
+  const foto = document.querySelector('[data-hero-foto]');
+  const fm = { x: 0, y: 0, ax: 0, ay: 0 };
+  if (hero && foto && !reduz) {
+    io.observe(hero);
+    addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      fm.x = (e.clientX / innerWidth - .5) * -22;
+      fm.y = (e.clientY / innerHeight - .5) * -12;
+    }, { passive: true });
+  }
+
   // ---- passagens ----
   const passagens = [...document.querySelectorAll('[data-passagem]')].map(el => ({ el, pulso: el.querySelector('.pulso'), fim: el.dataset.passagem === 'fim' }));
   passagens.forEach(p => io.observe(p.el));
@@ -49,6 +62,14 @@ export function iniciaLuz() {
       mouse.ay += (mouse.y - mouse.ay) * k;
       const d = `M0 50 Q${(mouse.ax * 1000).toFixed(1)} ${(50 + mouse.ay * 28).toFixed(2)} 1000 50`;
       if (d !== dAnterior) { for (const c of caminhos) c.setAttribute('d', d); dAnterior = d; }
+    }
+
+    if (hero && foto && !reduz && visiveis.has(hero) && hero.classList.contains('is-mexendo')) {
+      const k = 1 - Math.exp(-dt * 4);
+      fm.ax += (fm.x - fm.ax) * k;
+      fm.ay += (fm.y - fm.ay) * k;
+      hero.style.setProperty('--fx', `${fm.ax.toFixed(2)}px`);
+      hero.style.setProperty('--fy', `${fm.ay.toFixed(2)}px`);
     }
 
     for (const p of passagens) {

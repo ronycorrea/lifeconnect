@@ -10,7 +10,7 @@ mkdirSync(destino, { recursive: true });
 
 const fotos = [
   // hero: a equipe na frente da loja (apresentação)
-  { de: 'loja-equipe.jpg', para: 'hero.webp', recorte: { left: 0, top: 560, width: 960, height: 540 }, largura: 1400 },
+  { de: 'loja-equipe.jpg', para: 'hero.webp', recorte: { left: 0, top: 300, width: 960, height: 900 }, largura: 960 },
   { de: 'loja-equipe.jpg', para: 'hero-m.webp', recorte: { left: 0, top: 470, width: 960, height: 720 }, largura: 960 },
   // seção "chão": foto larga da equipe fazendo fusão de fibra
   { de: 'fusao-fibra.jpg', para: 'chao.webp', largura: 1600 },

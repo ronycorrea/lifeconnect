@@ -1,5 +1,5 @@
 /* Casa: a foto da loja sobe com os cantos de cima arredondados; a faixa branca da consulta encaixa por cima */
-.casa { position: relative; padding-top: clamp(100px, 16vh, 200px); overflow-x: clip; }
+.casa { position: relative; padding-top: var(--secao); overflow-x: clip; }
 .casa__topo { align-items: end; }
 .casa__topo .titulo { grid-column: 1 / 9; }
 .casa__apoio { grid-column: 9 / -1; color: var(--cinza); }
@@ -11,7 +11,7 @@
   margin-top: calc(-1 * var(--raio));
   border-radius: var(--raio) var(--raio) 0 0;
   background: var(--branco);
-  padding-block: clamp(48px, 9vh, 110px) clamp(40px, 8vh, 90px);
+  padding-block: clamp(36px, 6vh, 72px) clamp(32px, 5vh, 64px);
 }
 @supports (animation-timeline: view()) {
   .casa__foto img { animation: zoomFoto linear both; animation-timeline: view(); animation-range: entry 0% cover 55%; }

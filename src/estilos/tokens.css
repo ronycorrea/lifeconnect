@@ -38,6 +38,7 @@
   --t-estado: 420ms;
   --t-entrada: 900ms;
 
+  --secao: clamp(56px, 8vh, 104px); /* espaço padrão entre as seções */
   --raio: 28px;
   --nav-h: clamp(72px, 6.6vw, 108px);
 }
@@ -51,6 +52,7 @@
     --tipo-titulo: clamp(26px, 7.4vw, 44px);
     --tipo-sub: clamp(26px, 7.4vw, 44px);
     --raio: 20px;
+    --secao: 56px;
     --nav-h: 68px;
   }
 }

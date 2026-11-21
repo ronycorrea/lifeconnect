@@ -1,8 +1,8 @@
 /* No-break: título à esquerda e, à direita, a foto da instalação com anéis de luz que giram com a rolagem */
 .energia {
-  position: relative; min-height: 100svh;
+  position: relative; min-height: min(100svh, 760px);
   display: flex; align-items: center;
-  padding-block: clamp(120px, 20vh, 220px);
+  padding-block: var(--secao);
   overflow-x: clip;
 }
 .energia__texto { width: 100%; row-gap: 32px; }

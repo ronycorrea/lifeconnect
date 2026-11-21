@@ -1,5 +1,5 @@
 /* Instalação: passos em escada descendo para a direita; a CTO 3D no canto de cima à direita */
-.instalacao { position: relative; padding-top: clamp(80px, 12vh, 160px); padding-bottom: clamp(220px, 36vh, 440px); overflow-x: clip; }
+.instalacao { position: relative; padding-top: var(--secao); padding-bottom: clamp(180px, 28vh, 340px); overflow-x: clip; }
 .instalacao__topo .titulo { grid-column: 1 / 8; }
 
 .instalacao__palco {

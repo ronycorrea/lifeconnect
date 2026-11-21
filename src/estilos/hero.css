@@ -1,90 +1,115 @@
-/* 01 Hero: tipografia gigante, a fibra de luz no respiro do título e a consulta de cobertura no pé */
-.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow-x: clip; }
-.hero__topo { padding-top: calc(var(--nav-h) + clamp(18px, 6.4vh, 72px)); align-items: start; }
+/* 01 Hero: fundo quente, foto da equipe à direita sumindo para a esquerda, ondas laranja animadas,
+   título encorpado com traço de fibra, frase do preço e o símbolo. A consulta encaixa logo abaixo. */
+.hero { position: relative; overflow-x: clip; }
+.hero__palco {
+  position: relative; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: calc(var(--nav-h) + 24px) 0 clamp(90px, 15vh, 150px);
+  background: linear-gradient(115deg, #fffaf6 0%, #fff3ea 45%, #ffe6d4 100%);
+  overflow: hidden;
+}
+
+/* ---- fundo: foto + ondas ---- */
+.hero__fundo { position: absolute; inset: 0; pointer-events: none; }
+.hero__foto {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 68%; height: 100%;
+  object-fit: cover; object-position: 50% 62%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 12%, rgb(0 0 0 / .4) 30%, #000 56%);
+          mask-image: linear-gradient(90deg, transparent 0%, transparent 12%, rgb(0 0 0 / .4) 30%, #000 56%);
+  filter: saturate(1.08) contrast(1.03);
+  scale: 1.06; /* folga para o leve movimento com o mouse (luz.js) */
+}
+.js .hero__foto { opacity: 0; translate: 3% 0; }
+.js .hero.is-pronto .hero__foto { opacity: 1; translate: var(--fx, 0px) var(--fy, 0px); transition: opacity 1.4s var(--ease) .1s, translate 1.8s var(--ease) .1s; }
+.js .hero.is-pronto.is-mexendo .hero__foto { transition: opacity 1.4s var(--ease); }
+.hero__fundo::after { /* calor laranja no pé da foto */
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(70% 60% at 85% 100%, rgb(255 110 40 / .35), transparent 70%);
+}
+.hero__ondas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.onda { transform-box: fill-box; }
+.onda--topo { animation: ondaA 14s ease-in-out infinite alternate; }
+.onda--clara { animation: ondaB 11s ease-in-out infinite alternate; }
+.onda--base { animation: ondaC 16s ease-in-out infinite alternate; }
+@keyframes ondaA { to { transform: translate(-40px, 14px); } }
+@keyframes ondaB { to { transform: translate(50px, -10px); } }
+@keyframes ondaC { to { transform: translate(-60px, -8px) scaleY(1.06); } }
+
+/* ---- texto ---- */
+.hero__topo { position: relative; z-index: 1; align-content: center; row-gap: 0; }
 .hero__titulo {
-  grid-column: 1 / 10;
+  grid-column: 1 / 9;
   display: flex; flex-direction: column;
-  font-size: var(--tipo-display); font-weight: 450;
-  letter-spacing: -.062em; line-height: .8;
+  font-size: clamp(64px, min(8.8vw, 17svh), 200px); font-weight: 650;
+  letter-spacing: -.055em; line-height: .9;
   margin-left: -.035em; /* recuo óptico */
 }
-/* foto de apresentação: sobe por máscara na carga, à direita de "internet.", logo abaixo da linha de fibra */
-.hero__foto {
-  grid-column: 7 / -1; grid-row: 2;
-  position: relative; margin: calc(var(--tipo-display) * -.9) 0 0;
-  aspect-ratio: 16 / 9; border-radius: var(--raio); overflow: hidden;
-  background: var(--papel);
-}
-.hero__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.js .hero__foto { clip-path: inset(100% 0 0 0 round var(--raio)); }
-.js .hero__foto img { transform: scale(1.14); }
-.js .is-in .hero__foto { clip-path: inset(0 round var(--raio)); transition: clip-path 1.3s cubic-bezier(.65, 0, .35, 1) .25s; }
-.js .is-in .hero__foto img { transform: none; transition: transform 1.8s var(--ease) .25s; }
+.hero__titulo .linha + .linha { margin-top: -.12em; }
 
-/* aba branca no canto de baixo da foto, com cantos côncavos que se encaixam nela */
-.hero__selo {
-  position: absolute; left: 0; bottom: 0;
-  padding: clamp(14px, 1.4vw, 22px) clamp(18px, 1.8vw, 28px) 10px 14px; /* folga para o canto arredondado não cortar a 1ª bolinha */
-  background: var(--branco);
-  border-top-right-radius: var(--raio);
+.hero__traco {
+  grid-column: 1 / 5; position: relative; display: block;
+  height: 4px; margin-top: clamp(22px, 3.4vh, 40px); border-radius: 4px; overflow: hidden;
+  background: linear-gradient(90deg, var(--laranja) 0%, rgb(255 90 31 / .55) 40%, rgb(255 90 31 / .12) 100%);
+  transform-origin: left;
 }
-.hero__selo::before, .hero__selo::after {
-  content: ''; position: absolute; width: var(--raio); height: var(--raio);
-  background: radial-gradient(circle at 100% 0, transparent calc(var(--raio) - .5px), var(--branco) var(--raio));
+.hero__traco i {
+  position: absolute; top: 0; bottom: 0; width: 22%;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  animation: tracoLuz 3.2s cubic-bezier(.45, .05, .35, 1) 2s infinite;
+  translate: -120% 0;
 }
-.hero__selo::before { left: 0; bottom: 100%; }
-.hero__selo::after { left: 100%; bottom: 0; }
+@keyframes tracoLuz { to { translate: 560% 0; } }
+.js .hero__traco { transform: scaleX(0); }
+.js .is-in .hero__traco { transform: none; transition: transform 1.2s var(--ease) .45s; }
+
+.hero__frase {
+  grid-column: 1 / 7;
+  margin-top: clamp(20px, 3vh, 34px);
+  font-size: clamp(24px, 2.3vw, 42px); letter-spacing: -.03em; line-height: 1.15;
+}
 
 /* símbolo da marca: a imagem vira máscara e o fundo laranja a pinta; entra da esquerda para a direita */
 .hero__simbolo {
-  display: block; width: clamp(150px, 15vw, 250px); aspect-ratio: 1000 / 309;
+  grid-column: 1 / 5; display: block;
+  width: clamp(200px, 22vw, 360px); aspect-ratio: 1000 / 309; margin-top: clamp(26px, 4.4vh, 52px);
   background: var(--laranja);
   -webkit-mask: url('/simbolo.png') left center / contain no-repeat;
           mask: url('/simbolo.png') left center / contain no-repeat;
 }
 .js .hero__simbolo { clip-path: inset(0 100% 0 0); }
-.js .is-in .hero__simbolo { clip-path: inset(0 0 0 0); transition: clip-path 1.2s cubic-bezier(.65, 0, .35, 1) 1.2s; }
+.js .is-in .hero__simbolo { clip-path: inset(0 0 0 0); transition: clip-path 1.3s cubic-bezier(.65, 0, .35, 1) 1s; }
 
-
-.hero__frase {
-  grid-column: 10 / -1;
-  margin-top: calc(var(--tipo-display) * .12);
-  font-size: var(--tipo-medio); letter-spacing: -.03em; line-height: 1.12;
-  white-space: nowrap;
+/* ---- faixa da consulta: branca, cantos arredondados, encaixa por cima da onda ---- */
+.hero__pe {
+  position: relative; z-index: 6;
+  margin-top: calc(-1 * clamp(56px, 8vh, 84px));
+  padding-block: clamp(28px, 4.5vh, 48px) clamp(20px, 3vh, 32px);
+  background: var(--branco);
+  border-radius: var(--raio) var(--raio) 0 0;
 }
-
-/* a fibra: um cabo fino que se desenha da direita e pulsos de luz laranja correndo por ele */
-.hero__fibra { position: relative; display: block; height: .4em; }
-.hero__fibra svg {
-  position: absolute; top: 50%;
-  left: calc(-1 * var(--margem) + .035em);
-  width: 100vw; height: 100px; margin-top: -50px;
-  overflow: visible;
-  filter: drop-shadow(0 0 5px rgb(255 90 31 / .55));
-}
-.fibra__cabo { fill: none; stroke: #e6e3de; stroke-width: 2; stroke-dasharray: 1000 1000; stroke-dashoffset: -1000; }
-.fibra__luz { fill: none; stroke: var(--laranja); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 140 1000; stroke-dashoffset: -1000; opacity: 0; }
-.is-in .fibra__cabo { stroke-dashoffset: 0; transition: stroke-dashoffset 2.1s cubic-bezier(.16, 1, .3, 1) .15s; }
-.is-in .fibra__luz { opacity: 1; animation: fibraLuz 3.4s cubic-bezier(.45, .05, .35, 1) 1.2s infinite; }
-.is-in .fibra__luz--2 { animation-delay: 2.9s; stroke-width: 2; }
-@keyframes fibraLuz {
-  from { stroke-dashoffset: -1000; }
-  to { stroke-dashoffset: 140; }
-}
-
-.hero__pe { position: relative; z-index: 6; margin-top: auto; padding-top: 40px; padding-bottom: clamp(28px, 7vh, 72px); }
 
 @media (max-width: 760px) {
-  .hero { min-height: 100svh; }
-  .hero__topo { padding-top: calc(var(--nav-h) + 22px); }
-  .hero__titulo { grid-column: 1 / -1; }
-  .hero__foto { grid-column: 1 / -1; grid-row: auto; margin-top: 28px; aspect-ratio: 4 / 3; }
-  .hero__simbolo { width: 44vw; }
-  .hero__frase { grid-column: 1 / -1; margin-top: 26px; font-size: 22px; white-space: normal; }
+  .hero__palco { min-height: 0; justify-content: flex-start; padding: calc(var(--nav-h) + 20px) 0 0; }
+  .hero__foto {
+    position: relative; order: 2; display: block; width: 100%; height: 78vw; margin-top: 18px;
+    object-position: 50% 35%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 28%, #000 78%, transparent 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 28%, #000 78%, transparent 100%);
+  }
+  .hero__fundo { position: static; display: flex; flex-direction: column; }
+  .hero__fundo::after, .hero__ondas { position: absolute; }
+  .hero__palco { display: flex; flex-direction: column; }
+  .hero__topo { order: 1; }
+  .hero__fundo { order: 2; }
+  .hero__titulo, .hero__frase { grid-column: 1 / -1; }
+  .hero__titulo { font-size: var(--tipo-display); }
+  .hero__traco { grid-column: 1 / 4; }
+  .hero__frase { font-size: 22px; }
+  .hero__simbolo { grid-column: 1 / -1; width: 56vw; }
+  .hero__pe { margin-top: -40px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .fibra__cabo { stroke-dashoffset: 0; transition: none !important; }
-  .fibra__luz { display: none; }
-  .js .hero__simbolo, .js .hero__foto { clip-path: none; transition: none; }
-  .js .hero__foto img { transform: none; transition: none; }
+  .onda, .hero__traco i { animation: none !important; }
+  .js .hero__traco, .js .hero__simbolo { transform: none; clip-path: none; transition: none; }
+  .js .hero__foto { opacity: 1; translate: none; transition: none; }
 }

@@ -8,8 +8,8 @@
 .rodape__links { grid-column: 8 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-top: 12px; font-size: var(--tipo-link); }
 .rodape__links ul { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 
-.rodape__marca { position: relative; padding-top: clamp(80px, 16vh, 200px); }
-.rodape__passagem { top: 0; height: clamp(80px, 16vh, 200px); --passagem-l: 40vw; }
+.rodape__marca { position: relative; padding-top: clamp(56px, 11vh, 140px); }
+.rodape__passagem { top: 0; height: clamp(56px, 11vh, 140px); --passagem-l: 40vw; }
 .rodape__gigante {
   padding-inline: var(--margem);
   font-size: 16.4vw; font-weight: 500; letter-spacing: -.075em; line-height: .74;

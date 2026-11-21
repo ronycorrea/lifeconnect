@@ -20,7 +20,7 @@
 .chao__gente {
   position: relative; z-index: 2;
   margin-top: calc(-1 * clamp(160px, 26svh, 300px));
-  padding-bottom: clamp(80px, 14vh, 160px);
+  padding-bottom: clamp(40px, 7vh, 88px);
   align-items: start;
 }
 .gente--1 { grid-column: 1 / 4; margin-top: 4vh; }

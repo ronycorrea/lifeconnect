@@ -1,6 +1,6 @@
 /* EFEITO 3: cards "Vantagens" que viram (flip box 3D). O JS só alterna uc-hide / uc-show. */
-.vantagens { position: relative; padding-block: clamp(100px, 16vh, 200px); overflow-x: clip; }
-.vantagens__topo { align-items: end; margin-bottom: clamp(48px, 8vh, 96px); }
+.vantagens { position: relative; padding-block: var(--secao); overflow-x: clip; }
+.vantagens__topo { align-items: end; margin-bottom: clamp(32px, 5vh, 64px); }
 .vantagens__topo .titulo { grid-column: 1 / 9; }
 .vantagens__apoio { grid-column: 9 / -1; color: var(--cinza); font-size: var(--tipo-corpo); }
 .vantagens__cards { row-gap: 24px; }

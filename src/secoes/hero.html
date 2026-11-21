@@ -1,29 +1,45 @@
 <section class="hero" id="topo" aria-labelledby="hero-titulo">
-  <div class="hero__topo grade" data-marco="carga">
-    <h1 class="hero__titulo" id="hero-titulo">
-      <span class="linha"><span style="--i:0">A sua nova</span></span>
-      <!-- a fibra de luz cruza o respiro entre as linhas do título (no lugar do satélite da base) e segue o mouse -->
-      <span class="hero__fibra" aria-hidden="true">
-        <svg viewBox="0 0 1000 100" preserveAspectRatio="none" data-fibra>
-          <path class="fibra__cabo" pathLength="1000" d="M0 50 Q500 50 1000 50"/>
-          <path class="fibra__luz" pathLength="1000" d="M0 50 Q500 50 1000 50"/>
-          <path class="fibra__luz fibra__luz--2" pathLength="1000" d="M0 50 Q500 50 1000 50"/>
-        </svg>
-      </span>
-      <span class="linha"><span style="--i:1">internet<em class="ponto">.</em></span></span>
-    </h1>
-    <p class="hero__frase surge" style="--i:3">Fibra óptica a partir de<br>R$&nbsp;99,90 por mês.</p>
+  <!-- palco do hero: fundo quente, foto da equipe à direita (some para a esquerda) e ondas laranja animadas -->
+  <div class="hero__palco">
+    <div class="hero__fundo" aria-hidden="true">
+      <img class="hero__foto" data-hero-foto src="/img/hero.webp" alt="" width="960" height="900" fetchpriority="high">
+      <svg class="hero__ondas" viewBox="0 0 1600 900" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="onda-a" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ff5a1f"/><stop offset="1" stop-color="#ff9a3c"/>
+          </linearGradient>
+          <linearGradient id="onda-b" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff9a3c" stop-opacity=".9"/><stop offset="1" stop-color="#ff5a1f" stop-opacity=".55"/>
+          </linearGradient>
+        </defs>
+        <g class="onda onda--topo">
+          <path d="M860 0 C1060 140 1290 40 1600 170 L1600 0 Z" fill="url(#onda-b)" opacity=".75"/>
+          <path d="M980 0 C1160 110 1360 30 1600 105" fill="none" stroke="#fff" stroke-width="26" stroke-opacity=".35"/>
+        </g>
+        <g class="onda onda--clara">
+          <path d="M0 610 C240 560 470 700 760 760 C520 820 260 770 0 840 Z" fill="#fff" opacity=".7"/>
+        </g>
+        <g class="onda onda--base">
+          <path d="M0 770 C300 690 620 870 920 800 C1170 745 1370 845 1600 770 L1600 900 L0 900 Z" fill="url(#onda-a)"/>
+          <path d="M0 820 C320 760 640 900 960 840 C1210 795 1400 880 1600 820" fill="none" stroke="#fff" stroke-width="14" stroke-opacity=".4"/>
+        </g>
+      </svg>
+    </div>
 
-    <!-- foto de apresentação: a equipe na frente da loja. O símbolo oficial (public/simbolo.png) fica numa aba branca no canto -->
-    <figure class="hero__foto">
-      <picture>
-        <source media="(max-width: 760px)" srcset="/img/hero-m.webp">
-        <img src="/img/hero.webp" alt="Equipe de técnicos da Life Connect na frente da loja" width="1400" height="788" fetchpriority="high">
-      </picture>
-      <span class="hero__selo"><span class="hero__simbolo" role="img" aria-label="Símbolo da Life Connect"></span></span>
-    </figure>
+    <div class="hero__topo grade" data-marco="carga">
+      <h1 class="hero__titulo" id="hero-titulo">
+        <span class="linha"><span style="--i:0">A sua nova</span></span>
+        <span class="linha"><span style="--i:1">internet<em class="ponto">.</em></span></span>
+      </h1>
+      <!-- traço laranja com um pulso de luz correndo, como a fibra -->
+      <span class="hero__traco" aria-hidden="true"><i></i></span>
+      <p class="hero__frase surge" style="--i:3">Fibra óptica a partir de<br>R$&nbsp;99,90 por mês.</p>
+      <!-- símbolo oficial da Life Connect (public/simbolo.png), pintado de laranja pelo CSS -->
+      <span class="hero__simbolo" role="img" aria-label="Símbolo da Life Connect"></span>
+    </div>
   </div>
 
+  <!-- faixa branca da consulta, encaixada por cima da onda -->
   <div class="hero__pe">
     <!-- secao: cobertura id=hero -->
   </div>
